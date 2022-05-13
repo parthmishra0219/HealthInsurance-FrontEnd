@@ -5,9 +5,18 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-image: url("https://media.gettyimages.com/vectors/health-insurance-protection-concept-care-medical-healthcare-concept-vector-id1152061325?k=20&m=1152061325&s=612x612&w=0&h=OxCKwNXBAOuc3OFMCxjiZMUf6IAYcLXVtWtzODSAtlw="); */
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
+ 
 }
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+Home {
+  background-image: url("https://media.gettyimages.com/vectors/health-insurance-protection-concept-care-medical-healthcare-concept-vector-id1152061325?k=20&m=1152061325&s=612x612&w=0&h=OxCKwNXBAOuc3OFMCxjiZMUf6IAYcLXVtWtzODSAtlw=");
+
 }

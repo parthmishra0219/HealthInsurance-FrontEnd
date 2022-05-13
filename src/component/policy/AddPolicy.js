@@ -1,0 +1,94 @@
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router";
+
+function AddPolicy() {
+    const[policy,setPolicy]=useState({
+        policyId: "",
+        policyName: "",
+        policyCost: "",
+        policyDurationInYear: "",
+
+    })
+    const [formErrors, setFormErrors] = useState({});
+    const navigate = useNavigate();
+    const handleChange = (event) =>{
+        setPolicy(policy => ({...policy,[event.target.name] : event.target.value}))
+
+    }
+    const handleSubmit = () =>{
+
+      let errors = {};
+
+      if(!policy.policyId){
+          errors['policyIdErr'] = "Policy Id is Required"
+      }
+  
+      if(!policy.policyName){
+          errors['policyNameErr'] = "policy Name is Required"
+      }
+      if(!policy.policyCost){
+        errors['policyCostErr'] = "Policy Cost is Required"
+    }
+    if(!policy.policyDurationInYear){
+      errors['policyDurationInYearErr'] = "Policy Duration In Year is Required"
+  }
+
+  setFormErrors(errors);
+        const noErrors = Object.keys(errors).length === 0;
+        
+        if (noErrors) {
+            const palyload = {
+              policyId: policy.policyId,
+              policyName: policy.policyName,
+              policyCost: policy.policyCost,
+              policyDurationInYear: policy.policyDurationInYear  
+        
+    }
+    axios.post("http://localhost:8090/health/policies/add", palyload).then(resp => alert("policy saved "+resp.data.policyId));
+    navigate(-1);
+}
+ }
+
+    return(
+        <div>
+        <div>
+            
+         <label> Policy Id</label>
+         <input type="text" name="policyId" value={policy.policyId} onChange= {handleChange}/>
+         {
+                    formErrors.policyIdErr && <div style={{ color: "red", paddingBottom: 10 }}>{formErrors.policyIdErr}</div>
+           }
+        
+       </div>
+       <div>
+         <label> Policy Name</label>
+         <input type="text" name="policyName" value={policy.policyName} onChange={handleChange}/>
+         {
+                    formErrors.policyNameErr && <div style={{ color: "red", paddingBottom: 10 }}>{formErrors.policyNameErr}</div>
+           }
+         
+       </div>
+       <div>
+         <label> policy Cost</label>
+         <input type="text" name="policyCost" value={policy.policyCost} onChange={handleChange}/>
+         {
+                    formErrors.policyCostErr && <div style={{ color: "red", paddingBottom: 10 }}>{formErrors.policyCostErr}</div>
+           }
+         
+       </div>
+       <div>
+         <label>policyDuration In Year</label>
+         <input type="text" name="policyDurationInYear" value={policy.policyDurationInYear} onChange={handleChange}/>
+         {
+                    formErrors.policyDurationInYearErr && <div style={{ color: "red", paddingBottom: 10 }}>{formErrors.policyDurationInYearErr}</div>
+           }
+         
+       </div>
+      
+       <button class="btn btn-success" onClick={handleSubmit}  >Add Policy</button>
+     </div>
+
+    )
+}
+export default AddPolicy;
